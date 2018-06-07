@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<launch>
+  <node pkg="encoder_odometry" type="encoder_publisher_node" name="encoder_publisher" output="screen"/>
+
+  <node pkg="encoder_odometry" type="encoder_odometry_node" name="encoder_odometry" output="screen">
+    <param name="encoder_topic" value="/encoder"/>        
+    <param name="odom_topic" value="/odom" />              
+    <param name="publish_tf" value="true" />                  
+    <param name="base_frame_id" value="/base_footprint"/>            
+    <param name="odom_frame_id" value="/odom" />                
+    <param name="init_pose_from_topic" value=" " /> # (Odom topic) Leave empty to start at point (0,0)
+    <param name="freq" value="10"/>
+    <param name="wheel_diameter" value="15.25"/>
+    <param name="dt" value="0.01"/>                            
+  </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="base_footprint2base_link" args="0 0 0.08 0 0 0 /base_footprint /base_link 10"/> #设置/base_link在/base_footprint坐标系下的坐标原点, 也叫做从/base_footprint到/base_link的转换, /base_link → /base_footprint
+    <node pkg="tf" type="static_transform_publisher" name="base_link2laser_link" args="0 0 0.057 0 0 0 /base_link /laser 10"/>#  laser → base_link
+    <node pkg="tf" type="static_transform_publisher" name="base_link2imu" args="0.1275 0.0 0.0 0 0 0 /base_link /IMU_link 10"/># /IMU_link is child frame
+  
+
+</launch>

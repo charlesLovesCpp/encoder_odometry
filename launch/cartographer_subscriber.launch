@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<launch>
+  <node pkg="encoder_odometry" type="cartographer_subscriber_node" name="cartographer_subscriber" output="screen"/>
+
+</launch>
